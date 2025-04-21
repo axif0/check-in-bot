@@ -17,7 +17,7 @@ async function run() {
 
     const { owner, repo } = github.context.repo;
 
-    // Search for open issues and PRs without the ignore label.q
+    // Search for open issues and PRs without the ignore label.
     const query = `repo:${owner}/${repo} is:open -label:${ignoreLabel}`;
     const searchResponse = await octokit.paginate(octokit.search.issuesAndPullRequests, {
       q: query,
