@@ -12,3 +12,9 @@ node_modules
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Yarn Lockfile
+yarn.lock
+
+# Package Lockfile
+package-lock.json

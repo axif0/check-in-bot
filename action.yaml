@@ -13,6 +13,17 @@ inputs:
     description: 'Number of days of inactivity before checking in'
     required: true
     default: '14'
+  comment-message:
+    description: 'Message to post on inactive issues'
+    required: true
+    default: 'This issue has been inactive for {{ days-inactive }} days. Please check in.'
+  bot-username:
+    description: 'Username of the bot'
+    required: true
+  ignore-label:
+    description: 'Label to ignore issues with'
+    required: false
+    default: 'ignore-checkin'
   check-in-message:
     description: 'The check in message for issues and PRs (supports markdown)'
     required: true
@@ -24,5 +35,5 @@ inputs:
       Thanks and hope all are well! ❤️
 
 runs:
-  using: 'node16'
-  main: 'dist/index.ts'
+  using: 'node20'
+  main: 'dist/index.js'
