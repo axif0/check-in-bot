@@ -9,40 +9,36 @@ inputs:
   repo-token:
     description: "GitHub token to authorize API calls"
     required: true
+  bot-username:
+    description: 'Username of the bot'
+    required: true
   days-inactive:
     description: 'Number of days of inactivity before checking in'
     required: true
     default: '14'
-  comment-message:
-    description: 'Message to post on inactive issues'
-    required: true
-    default: 'This issue has been inactive for {{ days-inactive }} days. Please check in.'
-  bot-username:
-    description: 'Username of the bot'
-    required: true
-  ignore-label:
-    description: 'Label to ignore issues with'
-    required: false
-    default: 'ignore-checkin'
   check-in-message:
     description: 'The check in message for issues and PRs (supports markdown)'
     required: true
     default: |
       Hello to the maintainers and watchers!
 
-      There have been no updates here for the last two weeks. There might be need for a check in :)
+      There have been no updates here for {{ days-inactive }} days. There might be need for a check in :)
 
       Thanks and hope all are well! ❤️
+  ignore-label:
+    description: 'Label to ignore issues with'
+    required: false
+    default: 'ignore-checkin'
   stop-comment:
     description: 'Comment phrase to stop further bot comments and apply ignore-label'
     required: false
     default: 'checkin stop'
-  skip-pr:
-    description: 'Skip pull requests and only process issues'
-    required: false
-    default: 'true'
   auto-add-label:
     description: 'Automatically add ignore label when stop comment is found'
+    required: false
+    default: 'true'
+  skip-pr:
+    description: 'Skip pull requests and only process issues'
     required: false
     default: 'true'
 runs:

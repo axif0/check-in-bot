@@ -13,8 +13,6 @@ node_modules
 !.yarn/sdks
 !.yarn/versions
 
-# Yarn Lockfile
+# Lock Files
 yarn.lock
-
-# Package Lockfile
 package-lock.json

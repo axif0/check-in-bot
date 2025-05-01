@@ -53,7 +53,7 @@ jobs:
           comment-message: |
             Hello to the maintainers and watchers!
 
-            There have been no updates here for the last two weeks. There might be need for a check in :)
+            There have been no updates here for the {{ days-inactive }} days. There might be need for a check in :)
 
             Thanks and hope all are well! ❤️
 ```
