@@ -4,7 +4,8 @@ import { Octokit } from "@octokit/rest";
 
 async function run() {
   try {
-    // Get inputs.
+    // MARK: Inputs
+
     const token = core.getInput("repo-token");
     const daysInactive = parseFloat(core.getInput("days-inactive"));
     const checkInMessage = core.getInput("check-in-message");

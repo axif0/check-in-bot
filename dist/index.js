@@ -56,7 +56,7 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         var _a, _b, _c, _d;
         try {
-            // Get inputs.
+            // MARK: Inputs
             const token = core.getInput("repo-token");
             const daysInactive = parseFloat(core.getInput("days-inactive"));
             const checkInMessage = core.getInput("check-in-message");
