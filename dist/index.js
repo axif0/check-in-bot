@@ -65,7 +65,7 @@ function run() {
             const stopComment = core.getInput("stop-comment") || "checkin stop";
             const skipPRs = core.getInput("skip-pr").toLowerCase() !== "false";
             const autoAddLabel = core.getInput("auto-add-label").toLowerCase() !== "false";
-            // Log configuration.
+            // MARK: Log Configuration
             core.info(`🔧 CONFIGURATION:`);
             core.info(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
             core.info(`📅 Days inactive threshold: ${daysInactive}`);
@@ -75,13 +75,13 @@ function run() {
             core.info(`⏩ Skip PRs: ${skipPRs ? "Yes" : "No"}`);
             core.info(`🔄 Auto add label: ${autoAddLabel ? "Yes" : "No"}`);
             core.info(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-            // Set up Octokit.
+            // MARK: Set up Octokit
             core.info(`\n🚀 INITIALIZING:`);
             core.info(`Setting up GitHub API client...`);
             const octokit = new rest_1.Octokit({ auth: token });
             const { owner, repo } = github.context.repo;
             core.info(`Repository: ${owner}/${repo}`);
-            // Search for open issues and PRs without the ignore label.
+            // MARK: Find Issues and PRs
             let query = `repo:${owner}/${repo} is:open -label:${ignoreLabel}`;
             if (skipPRs) {
                 query += " is:issue"; // only match issues, not PRs
@@ -113,7 +113,7 @@ function run() {
                 core.info(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
                 core.info(`URL: ${item.html_url}`);
                 core.info(`Created: ${new Date(item.created_at).toISOString()}`);
-                // Fetch all comments for the issue or PR.
+                // MARK: Check Comment
                 const comments = yield octokit.paginate(octokit.issues.listComments, {
                     owner,
                     repo,
@@ -185,6 +185,7 @@ function run() {
                 core.info(`${inactivityCondition ? "✓" : "✗"} Inactivity threshold met (${daysSinceLastUser.toFixed(2)} days >= ${daysInactive} days required)`);
                 core.info(`${botActivityCondition ? "✓" : "✗"} Bot hasn't commented or user commented after bot`);
                 const shouldComment = inactivityCondition && botActivityCondition;
+                // MARK: Comment
                 if (shouldComment) {
                     core.info(`\n✅ ACTION: Posting comment to ${itemType} #${item.number}`);
                     // Start with the comment message template.
@@ -253,7 +254,7 @@ function run() {
                     skippedCount++;
                 }
             }
-            // Final summary.
+            // MARK: Summary
             core.info(`\n📊 FINAL SUMMARY:`);
             core.info(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
             core.info(`Total items processed: ${processedCount}`);

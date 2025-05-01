@@ -15,7 +15,8 @@ async function run() {
     const autoAddLabel =
       core.getInput("auto-add-label").toLowerCase() !== "false";
 
-    // Log configuration.
+    // MARK: Log Configuration
+
     core.info(`🔧 CONFIGURATION:`);
     core.info(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
     core.info(`📅 Days inactive threshold: ${daysInactive}`);
@@ -26,14 +27,16 @@ async function run() {
     core.info(`🔄 Auto add label: ${autoAddLabel ? "Yes" : "No"}`);
     core.info(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
 
-    // Set up Octokit.
+    // MARK: Set up Octokit
+
     core.info(`\n🚀 INITIALIZING:`);
     core.info(`Setting up GitHub API client...`);
     const octokit = new Octokit({ auth: token });
     const { owner, repo } = github.context.repo;
     core.info(`Repository: ${owner}/${repo}`);
 
-    // Search for open issues and PRs without the ignore label.
+    // MARK: Find Issues and PRs
+
     let query = `repo:${owner}/${repo} is:open -label:${ignoreLabel}`;
     if (skipPRs) {
       query += " is:issue"; // only match issues, not PRs
@@ -80,7 +83,8 @@ async function run() {
       core.info(`URL: ${item.html_url}`);
       core.info(`Created: ${new Date(item.created_at).toISOString()}`);
 
-      // Fetch all comments for the issue or PR.
+      // MARK: Check Comment
+
       const comments = await octokit.paginate(octokit.issues.listComments, {
         owner,
         repo,
@@ -205,6 +209,8 @@ async function run() {
 
       const shouldComment = inactivityCondition && botActivityCondition;
 
+      // MARK: Comment
+
       if (shouldComment) {
         core.info(
           `\n✅ ACTION: Posting comment to ${itemType} #${item.number}`
@@ -289,7 +295,8 @@ async function run() {
       }
     }
 
-    // Final summary.
+    // MARK: Summary
+
     core.info(`\n📊 FINAL SUMMARY:`);
     core.info(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
     core.info(`Total items processed: ${processedCount}`);
